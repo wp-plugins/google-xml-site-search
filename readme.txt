@@ -1,9 +1,9 @@
 === Google XML Site Search ===
-Contributors: slackernrrd, swemaniac, Tenchu
+Contributors: slackernrrd, swemaniac, jakobneander, Tenchu
 Tags: search, google
 Requires at least: 3.3 (may work with older versions, not tested)
 Tested up to: 3.4.1
-Stable tag: 1.0
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -52,5 +52,10 @@ To have access to the XML API you currently need a paid Google Custom Search acc
 
 == Changelog ==
 
-= 1.0 =
+= 1.1 (2012-08-27) =
+* Fixed a bug that made the plugin not work in some (possibly all) cases. Sorry about that.
+* Added localized Next/Previuos links in the default navigation HTML. Swedish translation is included in the plugin.
+* Fixed some deprecated syntax that caused errors with newer versions of PHP
+
+= 1.0 (2012-08-23) =
 * The initial version of this plugin

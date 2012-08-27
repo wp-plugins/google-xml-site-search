@@ -18,6 +18,7 @@ if (is_admin()) {
 	add_action('admin_menu', array($bgcs, 'action_admin_menu'));
 }
 else {
+	add_action('plugins_loaded', array($bgcs, 'bgcs_init'));
 	add_action('init', array($bgcs, 'action_init'));
 	add_filter('request', array($bgcs, 'filter_request'));
 	add_filter('search_template', array($bgcs, 'filter_search_template'));
@@ -25,7 +26,6 @@ else {
 	add_filter('the_posts', array($bgcs, 'filter_the_posts'), 10, 2);
 	add_filter('get_search_form', array($bgcs, 'filter_get_search_form'));
 }
-
 
 if (!function_exists('have_search_results')) {
 	/**
@@ -220,16 +220,16 @@ if (!function_exists('the_search_result_nav')) {
 		}
 		$current_page = get_search_result_current_page();
 		?>
-		<nav id="bgcs-search-navigation">
+		<nav id="bgcs-search-navigation" class="bgcs">
 			<ul role="navigation">
 				<?php if (has_search_result_prev_page()) : ?>
-					<li class="nav-item"><a href="<?php echo get_search_result_prev_page_url() ?>"><span class="meta-nav">&larr;</span> <?php _e('Previous'); ?></a></li>
+					<li class="nav-item prev-page"><a href="<?php echo get_search_result_prev_page_url() ?>"><span class="meta-nav">&larr;</span> <?php _e('Previous', 'bgcs'); ?></a></li>
 				<?php endif; ?>
 				<?php for ($i = $first_page; $i <= $last_page; $i++) :?>
 					<li class="nav-item<?php echo ($i == $current_page ? ' current-page' : '') ?>"><a href="<?php echo get_search_result_page_url($i) ?>"><?php echo $i ?></a></li>
 				<?php endfor; ?>
 				<?php if (has_search_result_next_page()) : ?>
-					<li class="nav-item"><a href="<?php echo get_search_result_next_page_url() ?>"><?php _e('Next'); ?> <span class="meta-nav">&rarr;</span></a></li>
+					<li class="nav-item next-page"><a href="<?php echo get_search_result_next_page_url() ?>"><?php _e('Next', 'bgcs'); ?> <span class="meta-nav">&rarr;</span></a></li>
 				<?php endif; ?>
 			</ul>
 		</nav>

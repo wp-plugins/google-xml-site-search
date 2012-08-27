@@ -54,6 +54,16 @@ class GoogleXmlSiteSearch {
 		$this->admin->delete_option();
 	}
 
+	public function bgcs_init() {
+		$dirname = dirname( plugin_basename( __FILE__ ) );
+		if (strstr($dirname, '\\')) {
+			$dirname = substr($dirname, strrpos($dirname, '\\'));
+		} else {
+			$dirname = substr($dirname, strrpos($dirname, '/'));
+		}
+		load_plugin_textdomain('bgcs', false, $dirname .'/languages/');
+	}
+
 	public function action_init() {
 		global $wp;
 		$wp->add_query_var('gcs');
@@ -73,11 +83,14 @@ class GoogleXmlSiteSearch {
 	}
 
 	public function filter_request($request) {
-        global $wp_query;
-		if ($wp_query->is_front_page() || $wp_query->is_home()) {
-			$search_query = $wp_query->get('gcs');
-			if ($search_query) {
-				$request['s'] = $search_query; // trigger is_search
+		if ($request) {
+			$query = new WP_Query();
+			$query->parse_query($request);
+			if ($query->is_front_page() || $query->is_home()) {
+				$search_query = $query->get('gcs');
+				if ($search_query) {
+					$request['s'] = $search_query; // trigger is_search
+				}
 			}
 		}
 		return $request;
@@ -140,7 +153,7 @@ class GoogleXmlSiteSearch {
 			'oe' => 'utf8',
 			'ie' => 'utf8'
 		);
-		$query_vars = apply_filters('bgcs_query_vars', &$query_vars);
+		$query_vars = apply_filters('bgcs_query_vars', $query_vars);
 
 		$request_uri = 'http://www.google.com/cse';
 		$request_uri = apply_filters('bgcs_request_uri', $request_uri);
@@ -165,7 +178,7 @@ class GoogleXmlSiteSearch {
 				$contents = $response['body'];
 
 				$xml = new SimpleXMLElement($contents);
-				$xml = apply_filters('bgcs_xml', &$xml);
+				$xml = apply_filters('bgcs_xml', $xml);
 
 				if (!isset($xml->ERROR)) {
 					$this->results->success = true;
@@ -188,7 +201,7 @@ class GoogleXmlSiteSearch {
 					}
 
 					$this->results->num_results = count($this->results->items);
-					$this->results = apply_filters('bgcs_results', &$this->results);
+					$this->results = apply_filters('bgcs_results', $this->results);
 				}
 			}
 		}
