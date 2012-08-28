@@ -50,6 +50,12 @@ You can find it in the Google Custom Search control panel for your search engine
 
 To have access to the XML API you currently need a paid Google Custom Search account. If you have one, this plugin is for you!
 
+
+== Screenshots ==
+
+1. Settings for the plugin.
+
+
 == Changelog ==
 
 = 1.1 (2012-08-27) =

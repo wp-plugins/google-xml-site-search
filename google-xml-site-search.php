@@ -2,7 +2,7 @@
 /*
 Plugin Name: Google XML Site Search
 Description: Adds the capability to use Google Site Search on your blog. The plugin uses the (non-free) XML API of Google Site Search to provide for maximum customization.
-Version: 1.0
+Version: 1.1
 Author: Bazooka
 Author URI: http://bazooka.se/
 */
